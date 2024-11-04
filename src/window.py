@@ -24,3 +24,9 @@ class Window:
 
     def close(self):
         self.is_running = False
+
+    def get_canvas(self):
+        return self.__canvas
+    
+    def get_canvas_background(self):
+        return self.__canvas["background"]

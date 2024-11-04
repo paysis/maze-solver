@@ -24,22 +24,33 @@ class Cell:
         self.set_wall(WallType.TOP, True)
         self.set_wall(WallType.BOTTOM, True)
 
-    def draw(self, fill_color="black"):
+    def draw(self):
+        left_line = Line(Point(self.top_left.x, self.top_left.y), Point(self.top_left.x, self.bottom_right.y))
+        right_line = Line(Point(self.bottom_right.x, self.top_left.y), Point(self.bottom_right.x, self.bottom_right.y))
+        top_line = Line(Point(self.top_left.x, self.top_left.y), Point(self.bottom_right.x, self.top_left.y))
+        bottom_line = Line(Point(self.top_left.x, self.bottom_right.y), Point(self.bottom_right.x, self.bottom_right.y))
+
+        white_color = self.__win.get_canvas_background()
+
         if self.has_wall(WallType.LEFT):
-            line = Line(Point(self.top_left.x, self.top_left.y), Point(self.top_left.x, self.bottom_right.y))
-            self.__win.draw_line(line, fill_color)
+            self.__win.draw_line(left_line, "black")
+        else:
+            self.__win.draw_line(left_line, white_color)
         
         if self.has_wall(WallType.RIGHT):
-            line = Line(Point(self.bottom_right.x, self.top_left.y), Point(self.bottom_right.x, self.bottom_right.y))
-            self.__win.draw_line(line, fill_color)
+            self.__win.draw_line(right_line, "black")
+        else:
+            self.__win.draw_line(right_line, white_color)
         
         if self.has_wall(WallType.TOP):
-            line = Line(Point(self.top_left.x, self.top_left.y), Point(self.bottom_right.x, self.top_left.y))
-            self.__win.draw_line(line, fill_color)
+            self.__win.draw_line(top_line, "black")
+        else:
+            self.__win.draw_line(top_line, white_color)
         
         if self.has_wall(WallType.BOTTOM):
-            line = Line(Point(self.top_left.x, self.bottom_right.y), Point(self.bottom_right.x, self.bottom_right.y))
-            self.__win.draw_line(line, fill_color)
+            self.__win.draw_line(bottom_line, "black")
+        else:
+            self.__win.draw_line(bottom_line, white_color)
 
 
     def draw_move(self, to_cell, undo=False):
