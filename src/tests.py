@@ -19,8 +19,8 @@ class Tests(unittest.TestCase):
         )
     
     def test_maze_create_cells_with_nonzero_location(self):
-        num_cols = 120
-        num_rows = 100
+        num_cols = 24
+        num_rows = 10
         m1 = Maze(100, 200, num_rows, num_cols, 10, 20)
         cells = m1._get_cells()
         self.assertEqual(
@@ -34,20 +34,30 @@ class Tests(unittest.TestCase):
 
     def test_maze_entrance_and_exit_exists(self):
         m1 = Maze(0,0,12,12,20,20)
-        m1._break_entrance_and_exit()
         cells = m1._get_cells()
         entry_c = cells[0][0]
         exit_c = cells[-1][-1]
 
         self.assertEqual(entry_c.has_wall(WallType.TOP), False)
-        self.assertEqual(entry_c.has_wall(WallType.BOTTOM), True)
-        self.assertEqual(entry_c.has_wall(WallType.RIGHT), True)
-        self.assertEqual(entry_c.has_wall(WallType.LEFT), True)
-
-        self.assertEqual(exit_c.has_wall(WallType.TOP), True)
         self.assertEqual(exit_c.has_wall(WallType.BOTTOM), False)
-        self.assertEqual(exit_c.has_wall(WallType.RIGHT), True)
-        self.assertEqual(exit_c.has_wall(WallType.LEFT), True)
+
+    def test_reset_cells(self):
+        m1 = Maze(0,0,12,12,20,20)
+        cells = m1._get_cells()
+
+        self.assertEqual(
+            cells[0][0].visited,
+            False
+        )
+        self.assertEqual(
+            cells[5][5].visited,
+            False
+        )
+        self.assertEqual(
+            cells[-1][-1].visited,
+            False
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

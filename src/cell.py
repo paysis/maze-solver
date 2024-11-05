@@ -2,6 +2,7 @@ from point import Point
 from line import Line
 from enum import Enum
 from typing import TYPE_CHECKING
+import random
 
 if TYPE_CHECKING:
     from window import Window
@@ -12,12 +13,14 @@ class WallType(Enum):
     TOP = "top"
     BOTTOM = "bottom"
 
+
 class Cell:
     def __init__(self, win):
         self.__win: Window = win
         self.__walls = {}
         self.top_left: Point = None
         self.bottom_right: Point = None
+        self.visited = False
 
         self.set_wall(WallType.LEFT, True)
         self.set_wall(WallType.RIGHT, True)
